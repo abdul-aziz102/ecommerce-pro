@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Productitems from '../components/Productitems';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/searchbar';
+
 import { ShopContext } from '../Context/ShopContextProvider';
 
 const Collection = () => {
