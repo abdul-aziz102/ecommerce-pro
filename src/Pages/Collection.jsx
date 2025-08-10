@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Productitems from '../components/Productitems';
-import SearchBar from '../components/searchbar';
+import Searchbar from '../components/Searchbar';
+
 
 import { ShopContext } from '../Context/ShopContextProvider';
 
@@ -24,7 +25,7 @@ const Collection = () => {
 
   return (
     <>
-      <SearchBar />
+      <Searchbar />
       <div className=" mx-auto py-10  bg-gray-900 px-4">
         <h2 className="text-3xl font-bold text-center text-teal-500 mb-6">Collection</h2>
 
