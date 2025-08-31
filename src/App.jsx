@@ -18,7 +18,7 @@ const App = () => {
   console.log("✅ App component is rendering"); // <-- ADD THIS LINE
 
   return (
-    <>
+    <div className='mt-10'>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -34,7 +34,7 @@ const App = () => {
       <Ourpolicy />
       <Newslater />
       <Footer />
-    </>
+    </div>
   );
 };
 
