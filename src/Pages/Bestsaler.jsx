@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Productitems from '../components/Productitems';
@@ -132,7 +133,7 @@ const Bestsaler = () => {
           variants={titleVariants}
           className="text-gray-400 max-w-2xl mx-auto text-lg md:text-xl"
         >
-          Discover our most loved products that customers can't stop talking about
+          Discover our most loved products that customers can&apos;t stop talking about
         </motion.p>
 
         {/* Animated underline */}
@@ -286,7 +287,7 @@ const Bestsaler = () => {
       </div>
 
       {/* Custom animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes pulse-slow {
           0%, 100% { opacity: 0.1; }
           50% { opacity: 0.2; }

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { assets } from '../assets/frontend_assets/assets';
@@ -96,7 +97,7 @@ const Ourpolicy = () => {
           </span>
         </h2>
         <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-          We're committed to providing you with the best shopping experience with our customer-friendly policies.
+          We&apos;re committed to providing you with the best shopping experience with our customer-friendly policies.
         </p>
       </motion.div>
 
@@ -191,7 +192,7 @@ const Ourpolicy = () => {
       </motion.div>
 
       {/* Custom animations */}
-      <style jsx>{`
+      <style >{`
         @keyframes pulse-slow {
           0%, 100% { opacity: 0.1; }
           50% { opacity: 0.2; }

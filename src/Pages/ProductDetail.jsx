@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShopContext } from '../Context/ShopContextProvider';
@@ -59,7 +59,7 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex items-center justify-center">
         <div className="text-white text-center">
           <h2 className='text-2xl mb-4'>Product Not Found</h2>
-          <p className="text-gray-400">The product you're looking for doesn't exist.</p>
+          <p className="text-gray-400">The product you are looking for does not exist.</p>
         </div>
       </div>
     );

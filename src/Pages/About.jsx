@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { assets } from '../assets/frontend_assets/assets';
@@ -153,7 +154,7 @@ const About = () => {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.6 }}
           >
-            Since our inception, we've worked tirelessly to curate a diverse
+            Since our inception, we have worked tirelessly to curate a diverse
             selection of high-quality products that cater to every taste and
             preference. From fashion and beauty to electronics and home
             essentials, we offer an extensive collection sourced from trusted
@@ -175,7 +176,7 @@ const About = () => {
             transition={{ delay: 1 }}
           >
             Our mission at <strong className="text-teal-400">Forever</strong> is to empower customers with
-            choice, convenience, and confidence. We're dedicated to providing a
+            choice, convenience, and confidence. We are dedicated to providing a
             seamless shopping experience that exceeds expectations, from
             browsing and ordering to delivery and beyond.
           </motion.p>
@@ -252,7 +253,7 @@ const About = () => {
       </motion.div>
 
       {/* Custom animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes pulse-slow {
           0%, 100% { opacity: 0.1; }
           50% { opacity: 0.2; }

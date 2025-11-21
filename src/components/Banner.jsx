@@ -1,164 +1,222 @@
-import React, { useEffect, useRef } from 'react';
-import { assets } from '../assets/frontend_assets/assets';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useRef, useState } from 'react';
 
 const Banner = () => {
   const bannerRef = useRef(null);
-  
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
-    // Intersection Observer for scroll-triggered animations
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fadeInUp');
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
       },
-      { threshold: 0.1 }
+      { threshold: 0.3 }
     );
 
-    if (bannerRef.current) {
-      const elements = bannerRef.current.querySelectorAll('.animate-on-scroll');
-      elements.forEach((el) => observer.observe(el));
+    const node = bannerRef.current;
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (bannerRef.current) {
-        const elements = bannerRef.current.querySelectorAll('.animate-on-scroll');
-        elements.forEach((el) => observer.unobserve(el));
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, []);
 
+  const products = [
+    {
+      name: "Nike Air Max",
+      price: "$129.99",
+      image: "https://i.pinimg.com/736x/78/55/dc/7855dc1d49168837fa9d4911b509a6ef.jpg",
+      category: "Sneakers"
+    },
+    {
+      name: "Adidas Ultraboost",
+      price: "$149.99",
+      image: "https://i.pinimg.com/736x/e9/04/7a/e9047a00c4321fcd5719cef71bd51a2c.jpg",
+      category: "Running"
+    }
+  ];
+
   return (
     <div 
       ref={bannerRef}
-      className="relative flex flex-wrap min-h-screen items-center justify-between bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 w-full text-white py-12 px-6 md:px-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden"
     >
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-full h-full z-0">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-teal-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-ping-slow"></div>
-        <div className="absolute top-3/4 left-1/2 w-64 h-64 bg-blue-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-bounce-slow"></div>
-      </div>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]"></div>
+      
+      {/* Animated Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
 
-      {/* Floating particles */}
-      <div className="absolute top-0 left-0 w-full h-full z-0">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-white rounded-full opacity-20"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float ${6 + Math.random() * 10}s ease-in-out infinite`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          ></div>
-        ))}
-      </div>
-
-      {/* Left Section */}
-      <div className="w-full mx-auto md:w-1/2 mb-8 text-center z-10">
-        <p className="text-sm uppercase tracking-widest font-semibold text-teal-400 mb-3 animate-on-scroll opacity-0 transform translate-y-10">
-          Our Bestsellers
-        </p>
-        <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-on-scroll opacity-0 transform translate-y-10">
-          Latest <span className="text-teal-400">Arrivals</span>
-        </h1>
-        <p className="text-lg mb-8 text-gray-300 animate-on-scroll opacity-0 transform translate-y-10">
-          Discover our exclusive collection of premium products designed for the modern lifestyle.
-        </p>
-        <a
-          href="/collection"
-          className="inline-block px-8 py-3 text-white bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-on-scroll opacity-0 transform translate-y-10"
-        >
-          Shop Now
-          <svg className="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </a>
-      </div>
-
-      {/* Right Section (Advanced Image with Animation) */}
-      <div className="w-full md:w-1/2 flex justify-center md:justify-end z-10">
-        <div className="relative w-full max-w-md">
-          <div className="relative rounded-xl overflow-hidden transform transition-all duration-700 hover:scale-105">
-            {/* Main product image */}
-            <img
-              src="https://i.pinimg.com/736x/ce/ca/15/ceca15d0706fa0b75bde38871836c786.jpg"
-              alt="Premium Sneakers"
-              className="w-full h-auto object-cover rounded-xl z-20 relative"
-            />
+      {/* Main Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Content */}
+          <div className={`space-y-8 transition-all duration-1000 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
             
-            {/* Hover overlay effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
-              <button className="px-6 py-2 bg-white text-gray-900 rounded-full font-medium transform translate-y-8 hover:translate-y-0 transition-transform duration-500">
-                Quick View
+            {/* Badge */}
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-green-400">New Collection Available</span>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Elevate
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                Your Style
+              </span>
+            </h1>
+
+            {/* Description */}
+            <p className="text-xl text-gray-300 max-w-lg leading-relaxed">
+              Discover premium footwear that combines cutting-edge design with unparalleled comfort. 
+              Step into the future of fashion.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-cyan-500/25 overflow-hidden">
+                <span className="relative z-10 flex items-center justify-center">
+                  Shop Collection
+                  <svg className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                  </svg>
+                </span>
+              </button>
+              
+              <button className="px-8 py-4 border-2 border-gray-600 hover:border-cyan-400 text-white font-semibold rounded-xl transition-all duration-300 hover:bg-white/5 backdrop-blur-sm">
+                View Lookbook
               </button>
             </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-700">
+              {[
+                { number: '2K+', label: 'Happy Customers' },
+                { number: '500+', label: '5-Star Reviews' },
+                { number: '24/7', label: 'Support' }
+              ].map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl font-bold text-white">{stat.number}</div>
+                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
-          
-          {/* Floating elements around the main image */}
-          <div className="absolute -top-4 -right-4 w-24 h-24 bg-teal-500/20 rounded-full animate-float-slow z-0"></div>
-          <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-purple-500/20 rounded-full animate-float-slower z-0"></div>
-          
-          {/* Badge with animation */}
-          <div className="absolute -top-4 -left-4 bg-gradient-to-r from-teal-500 to-blue-500 text-white px-4 py-2 rounded-full shadow-lg animate-pulse-slow z-30">
-            <span className="text-sm font-semibold">New</span>
+
+          {/* Right Content - Product Showcase */}
+          <div className={`relative transition-all duration-1000 delay-300 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
+            
+            {/* Main Product Card */}
+            <div className="relative group">
+              <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 shadow-2xl border border-slate-700">
+                
+                {/* Product Image */}
+                <div className="relative">
+                  <img
+                    src={products[0].image}
+                    alt={products[0].name}
+                    className="w-full h-auto rounded-2xl transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  
+                  {/* Hover Overlay */}
+                
+                </div>
+
+                {/* Product Info */}
+                <div className="mt-6 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-semibold text-white">{products[0].name}</h3>
+                    <span className="text-2xl font-bold text-cyan-400">{products[0].price}</span>
+                  </div>
+                  <p className="text-gray-400">{products[0].category}</p>
+                  
+                  {/* Rating */}
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                    <span className="text-sm text-gray-400 ml-2">(2.1k reviews)</span>
+                  </div>
+                </div>
+
+                {/* Floating Elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-cyan-500/10 rounded-full animate-float"></div>
+                <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-blue-500/10 rounded-full animate-float-delayed"></div>
+              </div>
+
+              {/* Discount Badge */}
+              <div className="absolute -top-3 -left-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-xl shadow-2xl font-semibold">
+                25% OFF
+              </div>
+            </div>
+
+            {/* Secondary Product (Smaller) */}
+            <div className="absolute -bottom-6 -right-6 w-48 transform rotate-12 hover:rotate-0 transition-transform duration-500">
+              <div className="bg-slate-800 rounded-2xl p-4 shadow-2xl border border-slate-700">
+                <img
+                  src={products[1].image}
+                  alt={products[1].name}
+                  className="w-full h-auto rounded-xl"
+                />
+                <div className="mt-3 flex justify-between items-center">
+                  <span className="text-white font-semibold text-sm">{products[1].name}</span>
+                  <span className="text-cyan-400 font-bold">{products[1].price}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Custom animations */}
-      <style jsx>{`
+      {/* Animated Orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slower"></div>
+
+      <style >{`
         @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-20px) scale(1.05); }
         }
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0) scale(1); }
-          50% { transform: translateY(-15px) scale(1.05); }
-        }
-        @keyframes float-slower {
-          0%, 100% { transform: translateY(0) scale(1); }
-          50% { transform: translateY(-10px) scale(1.03); }
-        }
-        @keyframes ping-slow {
-          0% { transform: scale(1); opacity: 0.2; }
-          75%, 100% { transform: scale(2); opacity: 0; }
+        @keyframes float-delayed {
+          0%, 100% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-15px) scale(1.03); }
         }
         @keyframes pulse-slow {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 0.15; }
         }
-        .animate-float-slow {
-          animation: float-slow 8s ease-in-out infinite;
+        @keyframes pulse-slower {
+          0%, 100% { opacity: 0.05; }
+          50% { opacity: 0.1; }
         }
-        .animate-float-slower {
-          animation: float-slower 12s ease-in-out infinite;
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
         }
-        .animate-ping-slow {
-          animation: ping-slow 4s cubic-bezier(0, 0, 0.2, 1) infinite;
+        .animate-float-delayed {
+          animation: float-delayed 8s ease-in-out infinite;
         }
         .animate-pulse-slow {
-          animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse-slow 8s ease-in-out infinite;
         }
-        .animate-bounce-slow {
-          animation: bounce 4s infinite;
-        }
-        .animate-fadeInUp {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .animate-pulse-slower {
+          animation: pulse-slower 12s ease-in-out infinite;
         }
       `}</style>
     </div>

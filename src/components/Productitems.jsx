@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../Context/ShopContextProvider';
@@ -203,3 +204,22 @@ const Productitems = ({ id, image, price, name, discount, rating, isBestseller }
 };
 
 export default Productitems;
+
+Productitems.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  image: PropTypes.arrayOf(PropTypes.string),
+  price: PropTypes.number,
+  name: PropTypes.string,
+  discount: PropTypes.number,
+  rating: PropTypes.number,
+  isBestseller: PropTypes.bool,
+};
+
+Productitems.defaultProps = {
+  image: [],
+  price: 0,
+  name: 'Unnamed Product',
+  discount: 0,
+  rating: 0,
+  isBestseller: false,
+};

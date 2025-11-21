@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShopContext } from '../Context/ShopContextProvider';
 
 const Checkout = () => {
-  const { cart, getTotalItems, currency } = useContext(ShopContext);
+  // No context values required for the simple checkout form
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
